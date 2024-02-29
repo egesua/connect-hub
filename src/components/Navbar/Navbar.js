@@ -13,7 +13,7 @@ function Navbar() {
 
     return (
       <div >
-        <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'space between' }}>
+        <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'space between'}}>
           <AppBar position="static">
             <Toolbar>
               <IconButton

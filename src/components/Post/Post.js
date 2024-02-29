@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
+import { Link } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -10,14 +11,13 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CommentIcon from '@mui/icons-material/Comment';
 
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
-})(({ theme, expand }) => ({
+})(({ theme}) => ({
   marginLeft: 'auto',
   transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest,
@@ -27,21 +27,28 @@ const ExpandMore = styled((props) => {
 function Post(props) {
 
   const [expanded, setExpanded] = useState(false);
-  const { title, text } = props;
+  const { title, text, username, userId } = props;
+  const [liked, setLiked] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const handleLike = () => {
+    setLiked(!liked);
+  }
+
   return (
-    <div className='flex justify-center flex-wrap'>
+    <div className='flex justify-center flex-wrap text-left'>
       <div className='m-4 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl flex-grow'>
       <Card sx={{ maxWidth: 800 }}>
       <CardHeader
         avatar={
+          <Link to={{ pathname: "/users/" + userId }}>
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {username.charAt(0).toUpperCase()}
           </Avatar>
+          </Link>
         }
         title={title}
       />
@@ -51,8 +58,10 @@ function Post(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton 
+        onClick={handleLike}
+        aria-label="add to favorites" >
+          <FavoriteIcon style={liked ? {color: "red"} : null} />
         </IconButton>
         <ExpandMore
           expand={expanded}

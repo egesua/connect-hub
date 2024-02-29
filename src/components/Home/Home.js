@@ -35,7 +35,7 @@ function Home() {
         className="flex flex-wrap justify-center items-center bg-slate-900 h-screen p-2"
       >
         {postList.map((post) => (
-          <Post title={post.title} text={post.text}></Post>
+          <Post userId={post.userId} username={post.username} title={post.title} text={post.text}></Post>
         ))}
       </Container>
     );
