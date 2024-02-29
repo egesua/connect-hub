@@ -29,8 +29,7 @@ function Home() {
     return <div> Loading... </div>;
   } else {
     return (
-      <div className="flex justify-evenly flex-wrap">
-        Home
+      <div className="flex justify-around flex-wrap">
         {postList.map((post) => (
           <Post title={post.title} text={post.text}></Post>
         ))}
