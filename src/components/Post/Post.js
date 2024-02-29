@@ -36,8 +36,9 @@ function Post(props) {
   };
 
   return (
-    <div className="border-2 border-black border-solid">
-      <Card sx={{ maxWidth: 345 }}>
+    <div className='flex justify-center flex-wrap'>
+      <div className='m-4 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl flex-grow'>
+      <Card sx={{ maxWidth: 800 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -50,7 +51,6 @@ function Post(props) {
           </IconButton>
         }
         title={title}
-        subheader="September 14, 2016"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
@@ -60,9 +60,6 @@ function Post(props) {
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
         </IconButton>
         <ExpandMore
           expand={expanded}
@@ -79,9 +76,8 @@ function Post(props) {
         </CardContent>
       </Collapse>
     </Card>
-      {title}
-      {text}
     </div>
+  </div>
   )
 }
 

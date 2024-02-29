@@ -2,6 +2,7 @@ import React from "react";
 import Post from "../Post/Post";
 
 import { useState, useEffect } from "react";
+import { Container } from "@mui/material";
 
 function Home() {
   const [error, setError] = useState(null);
@@ -29,11 +30,14 @@ function Home() {
     return <div> Loading... </div>;
   } else {
     return (
-      <div className="flex justify-around flex-wrap">
+      <Container
+        fixed
+        className="flex flex-wrap justify-center items-center bg-slate-900 h-screen p-2"
+      >
         {postList.map((post) => (
           <Post title={post.title} text={post.text}></Post>
         ))}
-      </div>
+      </Container>
     );
   }
 }
