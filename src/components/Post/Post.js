@@ -29,6 +29,7 @@ function Post(props) {
   const [expanded, setExpanded] = useState(false);
   const { title, text, username, userId } = props;
   const [liked, setLiked] = useState(false);
+  const [commentOn, setCommentOn] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -36,6 +37,10 @@ function Post(props) {
 
   const handleLike = () => {
     setLiked(!liked);
+  }
+
+  const handleComment = () => {
+    setCommentOn(!commentOn);
   }
 
   return (
@@ -69,7 +74,7 @@ function Post(props) {
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <CommentIcon />
+          <CommentIcon style={commentOn ? {color: 'red'} : null} onClick={handleComment} />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
