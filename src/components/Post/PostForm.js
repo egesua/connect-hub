@@ -66,11 +66,11 @@ function PostForm(props) {
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary">
-            <OutlinedInput
+              <OutlinedInput
                 id="outlined-adornment-amount"
                 multiline
                 placeholder="Text"
-                inputProps={{ maxLength: 250}}
+                inputProps={{ maxLength: 250 }}
                 fullWidth
               ></OutlinedInput>
             </Typography>
