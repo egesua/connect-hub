@@ -44,7 +44,7 @@ function Post(props) {
   }
 
   return (
-    <div className='flex justify-center flex-wrap text-left'>
+    <div className='flex justify-center flex-wrap text-left m-5'>
       <div className='m-4 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl flex-grow'>
       <Card sx={{ maxWidth: 800 }}>
       <CardHeader

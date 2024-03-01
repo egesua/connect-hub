@@ -2,7 +2,7 @@ import React from "react";
 import Post from "../Post/Post";
 
 import { useState, useEffect } from "react";
-import { Container } from "@mui/material";
+
 
 function Home() {
   const [error, setError] = useState(null);
@@ -30,14 +30,13 @@ function Home() {
     return <div> Loading... </div>;
   } else {
     return (
-      <Container
-        fixed
-        className="flex flex-wrap justify-center items-center bg-slate-900 h-screen p-2"
+      <div
+        className= "d-flex flex-wrap justify-items-center items-center bg-[#f0f5ff] p-5 m-5 h-screen"
       >
         {postList.map((post) => (
           <Post userId={post.userId} username={post.username} title={post.title} text={post.text}></Post>
         ))}
-      </Container>
+      </div>
     );
   }
 }
