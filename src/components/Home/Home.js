@@ -38,6 +38,7 @@ function Home() {
         <PostForm userId={1} username={"egesua"} refreshPosts={refreshPosts} />
         {postList.map((post) => (
           <Post
+            likes={post.postLikes}
             userId={post.userId}
             username={post.username}
             title={post.title}

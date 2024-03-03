@@ -17,13 +17,15 @@ import CommentForm from "../Comment/CommentForm";
 
 function Post(props) {
   const [expanded, setExpanded] = useState(false);
-  const { title, text, username, userId, postId } = props;
+  const { title, text, username, userId, postId, likes } = props;
   const [liked, setLiked] = useState(false);
   const [commentOn, setCommentOn] = useState(false);
   const [commentList, setCommentList] = useState([]);
   const isInitialMount = useRef(true);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const likeCount = likes.length;
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -91,6 +93,7 @@ function Post(props) {
           <CardActions disableSpacing>
             <IconButton onClick={handleLike} aria-label="add to favorites">
               <FavoriteIcon style={liked ? { color: "red" } : null} />
+              {likeCount}
             </IconButton>
             <IconButton
               expand={expanded}
