@@ -42,6 +42,7 @@ function Home() {
             username={post.username}
             title={post.title}
             text={post.text}
+            postId={post.id}
           ></Post>
         ))}
       </div>
