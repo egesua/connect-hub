@@ -25,15 +25,16 @@ function CommentForm(props) {
       }),
     })
       .then((res) => res.json())
-      .catch((err) => console.log("error"));
+      .catch((err) => console.log(err));
   };
 
   const handleSubmit = () => {
     saveComment();
+    setText("");
   }
 
-  const handleChange = (value) => {
-    setText(value);
+  const handleChange = (e) => {
+    setText(e);
   }
 
   return (
@@ -44,7 +45,7 @@ function CommentForm(props) {
           multiline
           inputProps={{ maxLength: 250 }}
           fullWidth
-          onChange={(i) => handleChange(i.target.value)}
+          onChange= {(e) => handleChange(e.target.value)}
           style={{color: "black", backgroundColor: 'white'}}
           startAdornment={
             <InputAdornment position="start">
