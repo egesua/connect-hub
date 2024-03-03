@@ -14,6 +14,7 @@ function PostForm(props) {
   const { username, userId, refreshPosts } = props;
   const [ text, setText ] = useState("");
   const [ title, setTitle ] = useState("");
+  const [ isSent, setIsSent ] = useState(false);
 
   const savePost = () => {
     fetch("/posts", {
@@ -34,14 +35,17 @@ function PostForm(props) {
   const handleSubmit = () => {
     savePost();
     refreshPosts();
+    setIsSent(true);
   };
 
   const handleTitle = (value) => {
     setTitle(value);
+    setIsSent(false);
   };
 
   const handleText = (value) => {
     setText(value);
+    setIsSent(false);
   };
 
   return (
