@@ -14,18 +14,17 @@ import { Container } from "@mui/material";
 import Comment from "../Comment/Comment";
 import CommentForm from "../Comment/CommentForm";
 
-
 function Post(props) {
   const [expanded, setExpanded] = useState(false);
   const { title, text, username, userId, postId, likes } = props;
-  const [liked, setLiked] = useState(false);
   const [commentOn, setCommentOn] = useState(false);
   const [commentList, setCommentList] = useState([]);
   const isInitialMount = useRef(true);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const likeCount = likes.length;
-
+  const [likeCount, setLikeCount] = useState(likes.length);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeId, setLikeId] = useState(null);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -34,7 +33,14 @@ function Post(props) {
   };
 
   const handleLike = () => {
-    setLiked(!liked);
+    setIsLiked(!isLiked);
+    if (!isLiked) {
+      saveLike();
+      setLikeCount(likeCount + 1);
+    } else {
+      deleteLike();
+      setLikeCount(likeCount - 1);
+    }
   };
 
   const handleComment = () => {
@@ -57,12 +63,47 @@ function Post(props) {
       );
   };
 
+  const saveLike = () => {
+    fetch("/likes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        postId: postId,
+        userId: userId,
+      }),
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+  };
+
+  const deleteLike = () => {
+    fetch("/likes/" + likeId, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+  };
+
+  const checkLikes = () => {
+    var likeControl = likes.find((like) => like.userId === userId);
+    if (likeControl != null) {
+      setLikeId(likeControl.id);
+      setIsLiked(true);
+    }
+  };
+
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else {
       refreshComments();
     }
+  }, [commentList]);
+
+  useEffect(() => {
+    checkLikes();
   }, []);
 
   return (
@@ -92,9 +133,9 @@ function Post(props) {
           </CardContent>
           <CardActions disableSpacing>
             <IconButton onClick={handleLike} aria-label="add to favorites">
-              <FavoriteIcon style={liked ? { color: "red" } : null} />
-              {likeCount}
+              <FavoriteIcon style={isLiked ? { color: "red" } : null} />
             </IconButton>
+            {likeCount}
             <IconButton
               expand={expanded}
               onClick={handleExpandClick}
@@ -112,7 +153,7 @@ function Post(props) {
               {error
                 ? "error"
                 : isLoaded
-                ? commentList.map(comment => (
+                ? commentList.map((comment) => (
                     <Comment
                       userId={1}
                       username={"egesua"}
@@ -120,10 +161,11 @@ function Post(props) {
                     ></Comment>
                   ))
                 : "Loading"}
-                <CommentForm userId={1}
-                      username={"egesua"}
-                      postId={postId}>
-                </CommentForm>
+              <CommentForm
+                userId={1}
+                username={"egesua"}
+                postId={postId}
+              ></CommentForm>
             </Container>
           </Collapse>
         </Card>
