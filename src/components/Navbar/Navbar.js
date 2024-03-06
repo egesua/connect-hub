@@ -29,7 +29,8 @@ function Navbar() {
                 <Link to="/">Home</Link>
               </Typography>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <Link to={{ pathname: "/users/" + userId }}>User</Link>
+                {localStorage.getItem("currentUser") === null ? <Link to="/auth">Login/Register</Link> :
+                <div><IconButton onClick={}></IconButton> <Link to={{ pathname: "/users/" + localStorage.getItem("currentUser")}}>Profile</Link> </div>}
               </Typography>
             </Toolbar>
           </AppBar>
