@@ -1,15 +1,24 @@
 import React from "react"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 import MenuIcon from '@mui/icons-material/Menu';
 
 function Navbar() {
 
-    let userId = 1;
+  let navigate = useNavigate();
+
+  const onClick = () => {
+    localStorage.removeItem("tokenKey");
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("username");
+    navigate(0);
+  }  
+  
 
     return (
       <div >
@@ -30,7 +39,7 @@ function Navbar() {
               </Typography>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 {localStorage.getItem("currentUser") === null ? <Link to="/auth">Login/Register</Link> :
-                <div><IconButton onClick={}></IconButton> <Link to={{ pathname: "/users/" + localStorage.getItem("currentUser")}}>Profile</Link> </div>}
+                <div><IconButton onClick={onClick}><LockOpenIcon/></IconButton> <Link to={{ pathname: "/users/" + localStorage.getItem("currentUser")}}>Profile</Link> </div>}
               </Typography>
             </Toolbar>
           </AppBar>
