@@ -1,4 +1,10 @@
-import { Button, FormControl, Input, InputLabel } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  Input,
+  InputLabel,
+  FormHelperText,
+} from "@mui/material";
 import React from "react";
 
 function Auth() {
@@ -17,6 +23,18 @@ function Auth() {
         }}
       >
         Register
+      </Button>
+      <FormHelperText style={{ margin: 20 }}>
+        Are you already registered ?
+      </FormHelperText>
+      <Button
+        variant="contained"
+        style={{
+          background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%",
+          color: "white",
+        }}
+      >
+        Login
       </Button>
     </FormControl>
   );
