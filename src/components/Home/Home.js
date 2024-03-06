@@ -35,7 +35,8 @@ function Home() {
   } else {
     return (
       <div className="d-flex flex-wrap justify-items-center items-center bg-whitey p-5 m-5 h-screen">
-        <PostForm userId={1} username={"egesua"} refreshPosts={refreshPosts} />
+        {localStorage.getItem("currentUser") === null ? "" : <PostForm userId={localStorage.getItem("currnetUser")} username={localStorage.getItem("username")} refreshPosts={refreshPosts} />}
+        
         {postList.map((post) => (
           <Post
             likes={post.postLikes}
