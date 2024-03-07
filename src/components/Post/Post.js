@@ -70,6 +70,7 @@ function Post(props) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("tokenKey")
       },
       body: JSON.stringify({
         postId: postId,
@@ -83,13 +84,16 @@ function Post(props) {
   const deleteLike = () => {
     fetch("/likes/" + likeId, {
       method: "DELETE",
+      headers: {
+        "Authorization": localStorage.getItem("tokenKey")
+      },
     })
       .then((res) => res.json())
       .catch((err) => console.log(err));
   };
 
   const checkLikes = () => {
-    var likeControl = likes.find((like) => like.userId === userId);
+    var likeControl = likes.find((like) => like.userId === localStorage.getItem("currentUser"));
     if (likeControl != null) {
       setLikeId(likeControl.id);
       setIsLiked(true);
@@ -134,11 +138,19 @@ function Post(props) {
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton 
-            disabled
-            onClick={handleLike} aria-label="add to favorites">
-              <FavoriteIcon style={isLiked ? { color: "red" } : null} />
-            </IconButton>
+            {disabled ? (
+              <IconButton
+                disabled
+                onClick={handleLike}
+                aria-label="add to favorites"
+              >
+                <FavoriteIcon style={isLiked ? { color: "red" } : null} />
+              </IconButton>
+            ) : (
+              <IconButton onClick={handleLike} aria-label="add to favorites">
+                <FavoriteIcon style={isLiked ? { color: "red" } : null} />
+              </IconButton>
+            )}
             {likeCount}
             <IconButton
               expand={expanded}
@@ -165,13 +177,15 @@ function Post(props) {
                     ></Comment>
                   ))
                 : "Loading"}
-                {disabled ? "" : 
+              {disabled ? (
+                ""
+              ) : (
                 <CommentForm
-                userId={1}
-                username={"egesua"}
-                postId={postId}
-              ></CommentForm>}
-              
+                  userId={1}
+                  username={"egesua"}
+                  postId={postId}
+                ></CommentForm>
+              )}
             </Container>
           </Collapse>
         </Card>
