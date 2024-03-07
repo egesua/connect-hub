@@ -74,7 +74,7 @@ function Post(props) {
       },
       body: JSON.stringify({
         postId: postId,
-        userId: userId,
+        userId: localStorage.getItem("currentUser"),
       }),
     })
       .then((res) => res.json())
@@ -93,7 +93,7 @@ function Post(props) {
   };
 
   const checkLikes = () => {
-    var likeControl = likes.find((like) => like.userId === localStorage.getItem("currentUser"));
+    let likeControl = likes.find((like) => ""+like.userId === localStorage.getItem("currentUser"));
     if (likeControl != null) {
       setLikeId(likeControl.id);
       setIsLiked(true);
